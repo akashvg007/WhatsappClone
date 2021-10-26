@@ -1,0 +1,23 @@
+.h-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-right: 1px solid var(--br-clr);
+    background-color: var(--m-bg);
+    height: 50px;
+    .icons{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .icon{
+            width: 40px;
+        }
+    }
+    .img img{
+        height: 40px;
+        width: 40px;
+        max-height: 40px;
+        max-width: 40px;
+        border-radius: 50%;
+    }
+}

@@ -1,0 +1,38 @@
+.App{
+    position: relative;
+    .back-header {
+        height: 127px;
+        background-color: var(--pr-green);
+        width: 100%;
+    }
+    .back-body {
+        height: calc(100vh - 127px);
+        background-color: var(--pr-gray);
+        width: 100%;
+    }
+    .main-body{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        .container {
+            background-color: var(--m-bg);
+            width: 1396px;
+            height: calc(100% - var(--m-b-h)*2);
+            margin: var(--m-b-h) auto;
+            display: flex;
+            .lefthandmenu{
+                width: 30%;
+            }
+            .main-area{
+                width: 70%;
+                background-image: url("/background.jpg");
+                background-position: center;
+                height: 100%;
+                background-repeat: repeat;
+                background-size: 400px 800px;
+            }
+        }
+    }
+}

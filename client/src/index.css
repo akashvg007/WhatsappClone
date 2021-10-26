@@ -1,0 +1,15 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  font-size: 16px;
+}
+:root {
+  --pr-green:#009688;
+  --pr-gray:#dadbd5;
+  --m-b-h: 20px;
+  --m-bg:#ededed;
+  --br-clr:#dadada;
+  --sec-fn:#aaa7a7
+}

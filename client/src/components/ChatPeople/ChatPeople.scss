@@ -1,0 +1,47 @@
+#chatpeople{
+    height: 80px;
+    width: calc(100% - 20px);
+    display: flex;
+    padding: 10px;
+    padding-top: 0;
+    font-family: Segoe UI,Helvetica Neue,Helvetica,Lucida Grande,Arial,Ubuntu,Cantarell,Fira Sans,sans-serif;
+    .pic{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22%;
+        img{
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+    }}
+    .details {
+        border-bottom: 1px solid var(--br-clr);
+        width: 78%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+        .title{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .name{
+                font-size: 17px;
+            }
+        }
+        .lastMsg{
+            display: flex;
+            font-size: 14px;
+            .message{
+                padding: 0 5px;
+            }
+            svg{
+                padding-top: 3px;
+                font-size: 14px;
+            }
+        }
+        .time{
+            padding-top: 15px;
+        }
+    }
+}
