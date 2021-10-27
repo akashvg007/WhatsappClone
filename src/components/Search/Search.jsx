@@ -1,25 +1,9 @@
 import * as React from 'react';
-// import "./Search.scss";
-// import { Search } from '@mui/icons-material';
-// export default function SearchField() {
-//     return (
-//         <div id="search">
-//             <div className="input">
-//                 <div className="search-icon">
-//                     <Search />
-//                 </div>
-//                 <div className="search-lable">
-//                     Search or start new chat
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
 import InputUnstyled from '@mui/core/InputUnstyled';
 import { styled } from '@mui/system';
 
 const StyledInputElement = styled('input')`
-  width: 90%;
+  width: 96%;
   margin-left:10px;
   font-size: 0.9rem;
   font-family: IBM Plex Sans, sans-serif;
@@ -40,11 +24,15 @@ const StyledInputElement = styled('input')`
 `;
 
 const CustomInput = React.forwardRef(function CustomInput(props, ref) {
-    return (
-        <InputUnstyled components={{ Input: StyledInputElement }} {...props} ref={ref} />
-    );
+  return (
+    <InputUnstyled components={{ Input: StyledInputElement }} {...props} ref={ref} />
+  );
 });
 
-export default function SearchField() {
-    return <CustomInput aria-label="Demo input" placeholder="Search or start a new chat" />;
+export default function SearchField({ text, value }) {
+  const handleChange = (e) => {
+    console.log("change", e.target.value);
+    value(e.target.value)
+  }
+  return <CustomInput onChange={handleChange} aria-label="Demo input" placeholder={text} />;
 }

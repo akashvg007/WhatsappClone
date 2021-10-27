@@ -2,7 +2,12 @@
     width: 100%;
     height: 100%;
     .list-container {
-        max-height: 1000px;
+        height: calc(100% - 124px);
         overflow: auto;
+        background-color: #fff;
+    }
+    .search-wrapper {
+        width: 95%;
+        padding: 10px 0;
     }
 }

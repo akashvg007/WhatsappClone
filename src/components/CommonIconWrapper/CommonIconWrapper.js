@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
-export default function LeftContainer({ Component }) {
+export default function IconWrapper({ Component }) {
     return (
         <div className="icon">
             <IconButton>

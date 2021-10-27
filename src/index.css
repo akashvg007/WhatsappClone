@@ -7,9 +7,13 @@ body{
 }
 :root {
   --pr-green:#009688;
-  --pr-gray:#dadbd5;
+  --pr-gray:#dadbd5;                   
+  --pr-gray-2:#f8f9fa;                   
   --m-b-h: 20px;
   --m-bg:#ededed;
   --br-clr:#dadada;
-  --sec-fn:#aaa7a7
+  --sec-fn:#aaa7a7;
+  --pr-fn:#525252;
+  --pr-fn2:#afb0b0;
+  --sec-fn2:#909090;
 }

@@ -2,11 +2,16 @@ import React from 'react';
 import "./ChatPeople.scss";
 import { Done, DoneAll } from '@mui/icons-material';
 export default function ChatPeople(props) {
-    const { name, photo, lastMsg, status, time } = props.data;
+    const { data, click } = props;
+    const { name, photo, lastMsg, status, time, id } = data;
     console.log("props check", props);
+    const handleClick = e => {
+        console.log("chatpeople clicked");
+        click(data);
+    }
 
     return (
-        <div id="chatpeople">
+        <div id="chatpeople" onClick={handleClick}>
             <div className="pic">
                 <img src={photo} alt="" />
             </div>
