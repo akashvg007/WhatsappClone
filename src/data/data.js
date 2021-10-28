@@ -80,3 +80,76 @@ export const data = [
         time: "10.20 pm"
     }
 ]
+
+export const chats = [
+    {
+        msg: "Hi Akash",
+        mclass: "left-side",
+        class: "bg-white"
+    },
+    {
+        msg: "Hi Yaar",
+        mclass: "right-side",
+        class: "bg-chat"
+    },
+    {
+        msg: "How are you?",
+        mclass: "left-side",
+        class: "bg-white"
+    },
+    {
+        msg: "I'm good, How are you?",
+        mclass: "right-side",
+        class: "bg-chat"
+    },
+    {
+        msg: "I'm also good, what are you doing?",
+        mclass: "left-side",
+        class: "bg-white"
+    },
+    {
+        msg: `I am working on this whatsapp clone.
+            Its not an easy task yaar, had to work all night`,
+        mclass: "right-side",
+        class: "bg-chat"
+    },
+    {
+        msg: "ok yaar, carry on with your work",
+        mclass: "left-side",
+        class: "bg-white"
+    },
+    {
+        msg: "and don't forget that you have stand up at 9am",
+        mclass: "left-side",
+        class: "bg-white"
+    },
+    {
+        msg: "i know yaar, I'll sleep now",
+        mclass: "right-side",
+        class: "bg-chat"
+    },
+    {
+        msg: "need to fix one more bug",
+        mclass: "right-side",
+        class: "bg-chat"
+    },
+    {
+        msg: "ok take care yaar",
+        mclass: "left-side",
+        class: "bg-white"
+    },
+    {
+        msg: "Good night",
+        mclass: "right-side",
+        class: "bg-chat"
+    },
+    {
+        msg: "ok good night",
+        mclass: "left-side",
+        class: "bg-white"
+    }
+]
+export const getChats = () => {
+    // return chats;
+    return [].concat(chats).reverse();
+}

@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from "../CommonHeader/CommonHeader";
 import "./MainContainer.scss";
 import SearchField from '../Search/Search';
 import { Search, MoreVert, InsertEmoticon, Attachment, Mic, Send } from '@mui/icons-material';
-import CommonIcon from "../CommonIconWrapper/CommonIconWrapper"
+import CommonIcon from "../CommonIconWrapper/CommonIconWrapper";
+import { getChats } from '../../data/data';
 export default function MainContainer({ data }) {
     const iconArr = [Search, MoreVert];
     const [value, setValue] = useState("");
+    const chatMsgs = getChats();
+    console.log("chats", chatMsgs);
+    // useEffect(()=>{
+    //     let chatMsgs = chats.reverse();
+    // },[chats])
+
     return (
         <div id="mainContainer">
             <Header>
@@ -27,6 +34,18 @@ export default function MainContainer({ data }) {
                     }
                 </div>
             </Header>
+            <section>
+                {
+                    chatMsgs.map(chat => (
+                        <div className={`chat-region ${chat.mclass}`}>
+                            <div className={`chat ${chat.class}`}>
+                                {chat.msg}
+                            </div>
+                        </div>
+                    ))
+                }
+
+            </section>
             <footer>
                 <div className="emoji">
                     <CommonIcon Component={InsertEmoticon} />

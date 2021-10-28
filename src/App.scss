@@ -41,3 +41,26 @@
         }
     }
 }
+
+@media only screen and (max-width: 401px) {
+    body {
+      background-color: lightblue;
+    }
+    .lefthandmenu{
+        width: 30%;
+    }
+    .main-area{
+        display: block;
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    body {
+      background-color: lightblue;
+    }
+    .lefthandmenu{
+        width: 100%;
+    }
+    .main-area{
+        display: none;
+    }
+  }
