@@ -14,6 +14,7 @@ const StyledInputElement = styled('input')`
   border-radius: 20px;
   padding: 6px 10px;
   color: #20262d;
+  height:calc(100% - 14px);
   &:focus-visible {
       outline:none;
   }
