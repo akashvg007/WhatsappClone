@@ -140,13 +140,13 @@ export const chats = [
     },
     {
         msg: "Good night",
-        mclass: "right-side",
-        class: "bg-chat"
+        mclass: "left-side",
+        class: "bg-white"
     },
     {
         msg: "ok good night",
-        mclass: "left-side",
-        class: "bg-white"
+        mclass: "right-side",
+        class: "bg-chat"
     }
 ]
 export const getChats = () => {
