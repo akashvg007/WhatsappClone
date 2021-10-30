@@ -3,14 +3,21 @@ import ButtonPr from '../Button/ButtonPr';
 import SelectField from '../Select/Select';
 import TextField from '@mui/material/TextField';
 import "./Register.scss";
+import { registerUser } from '../../Api/services';
 export default function Register({ register }) {
     const [agree, setAgree] = useState(1)
     const [heading, setHeading] = useState("Welcome to WhatsApp");
+    const [phone, setPhone] = useState('');
     const [otp, setOtp] = useState('');
     const handleClick = e => {
         setAgree(2);
     }
-    const handleNext = e => {
+    const PhoneChange = (e) => {
+        setPhone(e.target.value);
+    }
+    const handleNext = async (e) => {
+        const no = "+91" + phone;
+        const resp = await registerUser({ phone: no });
         setAgree(3);
     }
     const handleVerify = e => {
@@ -62,6 +69,8 @@ export default function Register({ register }) {
                                             <TextField id="phone"
                                                 style={{ width: "100%" }}
                                                 label="phone number"
+                                                value={phone}
+                                                onChange={PhoneChange}
                                                 variant="standard" />
                                         </div>
                                     </div>
