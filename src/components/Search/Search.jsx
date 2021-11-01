@@ -26,14 +26,17 @@ const StyledInputElement = styled('input')`
 
 const CustomInput = React.forwardRef(function CustomInput(props, ref) {
   return (
-    <InputUnstyled components={{ Input: StyledInputElement }} {...props} ref={ref} />
+    <InputUnstyled components={{ Input: StyledInputElement }} {...props} className={props.cls} ref={ref} />
   );
 });
 
-export default function SearchField({ text, value }) {
+export default function SearchField(props) {
+  const { text, KeyDown, setVal, value } = props
+  const [textVal, setTextVal] = React.useState()
   const handleChange = (e) => {
     console.log("change", e.target.value);
-    value(e.target.value)
+    setTextVal(e.target.value)
+    setVal(e.target.value)
   }
-  return <CustomInput onChange={handleChange} aria-label="Demo input" placeholder={text} />;
+  return <CustomInput value={value} onKeyDown={KeyDown} onChange={handleChange} aria-label="Demo input" placeholder={text} />;
 }

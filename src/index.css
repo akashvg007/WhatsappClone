@@ -10,10 +10,10 @@ body{
   font-weight: 400;
   color: var(--green-h1);
 }
-.bg-white{
+.left-chat{
   background-color: #fff;
 }
-.bg-chat{
+.right-chat{
   background-color: var(--chat-bg);
 }
 :root {

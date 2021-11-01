@@ -3,7 +3,7 @@ import ButtonPr from '../Button/ButtonPr';
 import SelectField from '../Select/Select';
 import TextField from '@mui/material/TextField';
 import "./Register.scss";
-import { registerUser } from '../../Api/services';
+import { registerUser, verifyOTP } from '../../Api/services';
 export default function Register({ register }) {
     const [agree, setAgree] = useState(1)
     const [heading, setHeading] = useState("Welcome to WhatsApp");
@@ -17,23 +17,21 @@ export default function Register({ register }) {
     }
     const handleNext = async (e) => {
         const no = "+91" + phone;
-        const resp = await registerUser({ phone: no });
+        await registerUser({ phone: no });
         setAgree(3);
     }
-    const handleVerify = e => {
-        if (otp === '0000')
-            register(true)
-        else setOtp('');
+    const handleVerify = async (e) => {
+        const no = "+91" + phone;
+        const resp = await verifyOTP({ phone: no, otp })
+        console.log("resp", resp);
+        localStorage.setItem("token", resp.accessToken);
+        localStorage.setItem("phone", "+91" + phone);
+        register(true)
     }
     const otpChange = e => {
         console.log("otpChange", e);
         setOtp(e.target.value)
     }
-    // const handleOTPClick = e => {
-    //     const parent = document.querySelector(".otp-verification");
-    //     const child = parent.childNodes
-    //     console.log("otp", child);
-    // }
     useEffect(() => {
         const text = ["Welcome to WhatsApp", "Verify your phone number"]
         setHeading(text[agree - 1])
