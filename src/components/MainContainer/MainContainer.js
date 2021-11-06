@@ -1,43 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import Header from "../CommonHeader/CommonHeader";
+import React, { useState, useEffect, useCallback } from 'react';
+import Header from "../../ReusableComponents/CommonHeader/CommonHeader";
 import "./MainContainer.scss";
-import SearchField from '../Search/Search';
+import SearchField from '../../ReusableComponents/Search/Search';
 import { Search, MoreVert, InsertEmoticon, Attachment, Mic, Send } from '@mui/icons-material';
-import CommonIcon from "../CommonIconWrapper/CommonIconWrapper";
-import { sendMessage } from "../../Api/services";
+import CommonIcon from "../../ReusableComponents/CommonIconWrapper/CommonIconWrapper";
+import { getMessageOne } from "../../Api/services";
+import { useConversations } from '../../contexts/ConversationsProvider';
+import CircularProgress from '@mui/material/CircularProgress';
 
-export default function MainContainer({ data, phone, dp, contact }) {
-    const iconArr = [Search, MoreVert];
+export default function MainContainer({ phone, dp, contact }) {
+    const iconArr = [{ Comp: Search, click: null }, { Comp: MoreVert, click: null }];
     const [value, setValue] = useState("");
-    const [chats, setChats] = useState([]);
+    const [loader, setLoader] = useState(false);
+
+    const setRef = useCallback(node => {
+        if (node) node.scrollIntoView({ smooth: true })
+    }, [])
+    const { sendMessageContext, getData, state } = useConversations()
+
     const photo = dp || "avatar.jpg";
     const myNum = localStorage.getItem("phone");
 
+    console.log("state", state)
+
     const handleSendMessage = async () => {
         if (value == "") return;
-        const newChat = [...chats];
-        console.log("beforeshift", newChat);
-        const from = localStorage.getItem("phone");
-        const messageObj = { msg: value, to: phone, from, time: Date.now(), status: 1 };
-        newChat.unshift(messageObj)
-        console.log("aftershift", newChat);
-        setChats(newChat)
-        await sendMessage(messageObj);
+        sendMessageContext(phone, value)
         setValue("")
     }
     const handleKeyDown = (e) => {
-        console.log("keyPress", e);
-        if (e.key == 'Enter') {
-            handleSendMessage();
-            setValue("")
-        }
+        if (e.key == 'Enter') handleSendMessage();
     }
     const handleChange = (val) => {
         setValue(val);
     }
+    const getNewMessages = async () => {
+        setLoader(true)
+        const payload = { from: myNum, to: phone }
+        const result = await getMessageOne(payload);
+        getData(result);
+        setLoader(false)
+    }
     useEffect(() => {
-        setChats(data)
-    }, [data])
+        getNewMessages();
+    }, [])
 
     return (
         <div id="mainContainer">
@@ -53,24 +59,28 @@ export default function MainContainer({ data, phone, dp, contact }) {
                 </div>
                 <div className="icons">
                     {
-                        iconArr.map(comp => (
-                            <CommonIcon Component={comp} />
+                        iconArr.map(icon => (
+                            <CommonIcon Component={icon.Comp} click={icon.click} />
                         ))
                     }
                 </div>
             </Header>
-            <section>
-                {
-                    chats.map(chat => (
-                        <div className={`chat-region ${chat.from === myNum ? 'right' : 'left'}-side`}>
-                            <div className={`chat ${chat.from === myNum ? 'right' : 'left'}-chat`}>
-                                {chat.msg}
-                            </div>
-                        </div>
-                    ))
-                }
+            {loader || !state ? (<CircularProgress />)
+                : (<section>
+                    {
+                        state?.map((chat, idx) => {
+                            const lastMsg = idx === 0;
+                            return (
+                                <div ref={lastMsg ? setRef : null} className={`chat-region ${chat.from === myNum ? 'right' : 'left'}-side`}>
+                                    <div className={`chat ${chat.from === myNum ? 'right' : 'left'}-chat`}>
+                                        {chat.msg}
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
 
-            </section>
+                </section>)}
             <footer>
                 <div className="emoji">
                     <CommonIcon Component={InsertEmoticon} />

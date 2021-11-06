@@ -1,5 +1,6 @@
 const prod = "https://whatsapp-server.herokuapp.com";
 const local = "localhost:3400"
+export const chatService = "https://chat-service-whatsapp.herokuapp.com"
 
 export const getBaseUrl = () => {
     const { hostname } = document.location
@@ -18,4 +19,5 @@ export const endpoints = {
     getMsg: "/user/get-msg",
     getRecent: "/user/getrecent",
     getcontacts: "/user/getcontacts",
+    addcontact: "/user/addcontact",
 }

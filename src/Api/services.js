@@ -38,7 +38,6 @@ export const registerUser = async (payload) => {
     try {
         const url = baseUrl + endpoints.register;
         const result = await commonPost(url, payload);
-        console.log("register::result", result);
         return result
     }
     catch (err) {
@@ -51,7 +50,18 @@ export const verifyOTP = async (payload) => {
     try {
         const url = baseUrl + endpoints.verify;
         const result = await commonPost(url, payload);
-        console.log("verifyOTP::result", result);
+        return result
+    }
+    catch (err) {
+        console.log("something went wrong", err.message);
+
+    }
+}
+
+export const getMessageOne = async (payload) => {
+    try {
+        const url = baseUrl + endpoints.getMsg;
+        const result = await commonPost(url, payload);
         return result
     }
     catch (err) {
@@ -91,6 +101,18 @@ export const getContact = async () => {
         const url = baseUrl + endpoints.getcontacts;
         const result = await commonGet(url);
         console.log("getContact::result", result);
+        return result
+    }
+    catch (err) {
+        console.log("something went wrong", err.message);
+
+    }
+}
+export const addContact = async (payload) => {
+    try {
+        const url = baseUrl + endpoints.addcontact;
+        const result = await commonPost(url, payload);
+        console.log("addContact::result", result);
         return result
     }
     catch (err) {
