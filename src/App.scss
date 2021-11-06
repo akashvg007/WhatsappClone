@@ -18,7 +18,7 @@
         top: 0;
         .container {
             background-color: var(--m-bg);
-            width: 1396px;
+            width: 100%;
             height: calc(100% - var(--m-b-h)*2);
             margin: var(--m-b-h) auto;
             display: flex;
@@ -42,25 +42,27 @@
     }
 }
 
-@media only screen and (max-width: 401px) {
-    body {
-      background-color: lightblue;
-    }
-    .lefthandmenu{
-        width: 30%;
-    }
-    .main-area{
-        display: block;
-    }
-  }
-  @media only screen and (max-width: 400px) {
-    body {
-      background-color: lightblue;
-    }
-    .lefthandmenu{
-        width: 100%;
-    }
-    .main-area{
-        display: none;
-    }
-  }
+// @media only screen and (max-width: 700px) {
+//     body {
+//       background-color: lightblue;
+//     }
+//     .lefthandmenu{
+//         width: 30%;
+//     }
+//     .main-area{
+//         display: block;
+//     }
+//   }
+//   @media only screen and (max-width: 426px) {
+//     body {
+//       background-color: lightblue;
+//     }
+//     .lefthandmenu{
+//         width: 100vw !important;
+//         height: 100vh;
+//         overflow-x: hidden;
+//     }
+//     .main-area{
+//         display: none;
+//     }
+//   }

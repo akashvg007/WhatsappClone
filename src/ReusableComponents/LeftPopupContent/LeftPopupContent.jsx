@@ -18,7 +18,7 @@ export default function LeftPopup({ getAllContacts, setAnchorEl, popup }) {
     }, [popup])
     const handleAddContact = async (e) => {
         const no = "+91" + phone;
-        const result = await addContact({ phone: no, name: contactName });
+        await addContact({ phone: no, name: contactName });
         setOpen(false)
         setAnchorEl(null)
         getAllContacts()
@@ -50,7 +50,8 @@ export default function LeftPopup({ getAllContacts, setAnchorEl, popup }) {
                     label="phone number"
                     value={phone}
                     onChange={PhoneChange}
-                    variant="standard" />
+                    variant="standard"
+                    inputProps={{ maxLength: 10 }} />
             </div>
             <div className="text-field-wrapper">
                 <TextField id="name-text-field"
