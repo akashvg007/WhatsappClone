@@ -43,7 +43,7 @@ export default function MainContainer({ phone, dp, contact }) {
     }
     useEffect(() => {
         getNewMessages();
-    }, [])
+    }, [phone])
 
     return (
         <div id="mainContainer">

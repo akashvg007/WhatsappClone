@@ -6,10 +6,8 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Register from './components/Register/Register';
 import { getRecentChats } from "./Api/services";
 import { getContact } from "./Api/services";
-import { ContactsProvider } from './contexts/ContactsProvider'
 import { ConversationsProvider } from './contexts/ConversationsProvider';
 import { SocketProvider } from './contexts/SocketProvider';
-import useLocalStorage from './hooks/useLocalStorage';
 
 function App() {
   const [selected, setSelected] = useState(false);
@@ -19,7 +17,6 @@ function App() {
   const [chatlist, setChatlist] = useState({})
   const [contact, setContact] = useState({});
   const [loader, setLoader] = useState(false);
-  const [id, setId] = useLocalStorage('id')
 
   const myPhone = localStorage.getItem("phone") || ""
   const getChats = async () => {
@@ -49,6 +46,8 @@ function App() {
       const { name, phone } = list;
       if (!contactList[phone]) contactList[phone] = name;
     })
+    console.log("contacts::contactList", contacts, contactList);
+
     setContact(contactList);
     setLoader(false)
   }
@@ -66,12 +65,10 @@ function App() {
 
   const dashboard = (
     <SocketProvider id={myPhone}>
-      <ContactsProvider>
-        <ConversationsProvider id={myPhone}>
-          <MainContainer contact={contact} dp={undefined}
-            phone={currentUser} />
-        </ConversationsProvider>
-      </ContactsProvider>
+      <ConversationsProvider id={myPhone}>
+        <MainContainer contact={contact} dp={undefined}
+          phone={currentUser} />
+      </ConversationsProvider>
     </SocketProvider>
   )
   return (
