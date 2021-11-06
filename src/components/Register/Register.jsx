@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ButtonPr from '../Button/ButtonPr';
-import SelectField from '../Select/Select';
+import ButtonPr from '../../ReusableComponents/Button/ButtonPr';
+import SelectField from '../../ReusableComponents/Select/Select';
 import TextField from '@mui/material/TextField';
 import "./Register.scss";
 import { registerUser, verifyOTP } from '../../Api/services';
@@ -23,13 +23,11 @@ export default function Register({ register }) {
     const handleVerify = async (e) => {
         const no = "+91" + phone;
         const resp = await verifyOTP({ phone: no, otp })
-        console.log("resp", resp);
         localStorage.setItem("token", resp.accessToken);
         localStorage.setItem("phone", "+91" + phone);
         register(true)
     }
     const otpChange = e => {
-        console.log("otpChange", e);
         setOtp(e.target.value)
     }
     useEffect(() => {

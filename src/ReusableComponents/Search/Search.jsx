@@ -32,10 +32,7 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
 
 export default function SearchField(props) {
   const { text, KeyDown, setVal, value } = props
-  const [textVal, setTextVal] = React.useState()
   const handleChange = (e) => {
-    console.log("change", e.target.value);
-    setTextVal(e.target.value)
     setVal(e.target.value)
   }
   return <CustomInput value={value} onKeyDown={KeyDown} onChange={handleChange} aria-label="Demo input" placeholder={text} />;
