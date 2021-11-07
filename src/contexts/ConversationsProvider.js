@@ -19,7 +19,6 @@ export function ConversationsProvider({ id, children }) {
     setState(prev => {
       return [messageObj, ...prev]
     })
-    debugger;
     if (sender === myNum && status === 1) {
       await sendMessage(messageObj);
     }
