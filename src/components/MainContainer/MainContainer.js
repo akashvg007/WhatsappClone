@@ -66,7 +66,7 @@ export default function MainContainer({ phone, dp, contact }) {
         <div id="mainContainer">
             <Header>
                 <div className="title">
-                    <div className="img" onDoubleClick={handleDobleClick}>
+                    <div className="img" onTouchStart={handleDobleClick} onDoubleClick={handleDobleClick}>
                         <img src={photo} alt="profile pic" />
                     </div>
                     <div className="user-abbri">
@@ -83,7 +83,7 @@ export default function MainContainer({ phone, dp, contact }) {
                 </div>
             </Header>
             {
-                viewImage && <div className="viewimage" onDoubleClick={handleDobleClick}>
+                viewImage && <div className="viewimage" onTouchStart={handleDobleClick} onDoubleClick={handleDobleClick}>
                     <img src={photo} alt="" width="auto" height="80%" />
                 </div>
             }
