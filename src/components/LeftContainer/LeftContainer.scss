@@ -14,3 +14,28 @@
         padding: 10px 5px;
     }
 }
+@media only screen and (min-width: 427px) {
+    #leftContainer{
+        .h-container{
+            .icons {
+                display: flex;
+              }
+        }
+        .search-wrapper {
+            display: block;
+        }
+    }
+  }
+
+@media only screen and (max-width: 426px) {
+    #leftContainer{
+        .h-container{
+            .icons {
+                display: none;
+              }
+        }
+        .search-wrapper {
+            display: none;
+        }
+    }
+  }

@@ -61,7 +61,7 @@ function App() {
       setRegistered(true);
       getAllContacts()
     }
-  }, [])
+  }, [chatlist])
 
   const dashboard = (
     <SocketProvider id={myPhone}>

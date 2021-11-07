@@ -16,12 +16,31 @@ body{
 .right-chat{
   background-color: var(--chat-bg);
 }
+.min-width {
+  min-width: 350px;
+  width: 500px;
+}
 .loader {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+}
+.text-field-wrapper{
+  display: flex;
+  justify-content: flex-start;
+  .code{
+    width: 20%;
+  }
+  .phone{
+    padding-left: 10px;
+    width: 80%;
+  }
+  .MuiFormControl-root {
+    margin: 0 !important;
+    min-width: 70px
+  }
 }
 :root {
   --pr-green:#009688;

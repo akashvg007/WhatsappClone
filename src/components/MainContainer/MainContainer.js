@@ -7,11 +7,13 @@ import CommonIcon from "../../ReusableComponents/CommonIconWrapper/CommonIconWra
 import { getMessageOne } from "../../Api/services";
 import { useConversations } from '../../contexts/ConversationsProvider';
 import CircularProgress from '@mui/material/CircularProgress';
+import Emoji from '../../ReusableComponents/Emoji/Emoji'
 
 export default function MainContainer({ phone, dp, contact }) {
     const iconArr = [{ Comp: Search, click: null }, { Comp: MoreVert, click: null }];
     const [value, setValue] = useState("");
     const [loader, setLoader] = useState(false);
+    const [emojiOpen, setEmojiOpen] = useState(false)
 
     const setRef = useCallback(node => {
         if (node) node.scrollIntoView({ smooth: true })
@@ -21,12 +23,23 @@ export default function MainContainer({ phone, dp, contact }) {
     const photo = dp || "avatar.jpg";
     const myNum = localStorage.getItem("phone");
 
-    console.log("state", state)
+    const getEmoji = (emoji) => {
+        console.log("getemoji::emoji", emoji.unicode);
+        let newVal = value;
+        console.log("getemoji::value", value);
+        newVal += emoji.unicode;
+        console.log("getemoji::newval", newVal);
+        setValue(newVal);
+        setEmojiOpen(false)
+    }
 
     const handleSendMessage = async () => {
         if (value == "") return;
         sendMessageContext(phone, value)
         setValue("")
+    }
+    const handleClickEmoji = () => {
+        setEmojiOpen(!emojiOpen)
     }
     const handleKeyDown = (e) => {
         if (e.key == 'Enter') handleSendMessage();
@@ -83,11 +96,14 @@ export default function MainContainer({ phone, dp, contact }) {
                 </section>)}
             <footer>
                 <div className="emoji">
-                    <CommonIcon Component={InsertEmoticon} />
+                    <CommonIcon Component={InsertEmoticon} click={handleClickEmoji} />
+                    {emojiOpen && <div className="emojiContainer">
+                        <Emoji getEmoji={getEmoji} />
+                    </div>}
                 </div>
-                <div className="attachment">
+                {/* <div className="attachment">
                     <CommonIcon Component={Attachment} />
-                </div>
+                </div> */}
                 <div className="message-box">
                     <SearchField text="Type a message"
                         KeyDown={handleKeyDown}

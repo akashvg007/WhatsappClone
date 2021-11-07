@@ -19,6 +19,7 @@
         .container {
             background-color: var(--m-bg);
             width: 100%;
+            max-width: 1375px;
             height: calc(100% - var(--m-b-h)*2);
             margin: var(--m-b-h) auto;
             display: flex;
@@ -42,27 +43,24 @@
     }
 }
 
-// @media only screen and (max-width: 700px) {
-//     body {
-//       background-color: lightblue;
-//     }
-//     .lefthandmenu{
-//         width: 30%;
-//     }
-//     .main-area{
-//         display: block;
-//     }
-//   }
-//   @media only screen and (max-width: 426px) {
-//     body {
-//       background-color: lightblue;
-//     }
-//     .lefthandmenu{
-//         width: 100vw !important;
-//         height: 100vh;
-//         overflow-x: hidden;
-//     }
-//     .main-area{
-//         display: none;
-//     }
-//   }
+@media only screen and (min-width: 427px) {
+    .lefthandmenu{
+        width: 30% !important;
+    }
+    .main-area{
+        width: 70% !important;
+    }
+  }
+  @media only screen and (max-width: 426px) {
+    body {
+      background-color: lightblue;
+    }
+    .lefthandmenu{
+        width: 15% !important;
+        height: 100vh;
+        overflow-x: hidden;
+    }
+    .main-area{
+        width: 85% !important;
+    }
+  }

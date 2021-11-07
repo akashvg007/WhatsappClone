@@ -65,6 +65,14 @@
                 width: 40px;
             }
         }
+        .emoji {
+            position: relative;
+            .emojiContainer {
+                position: absolute;
+                bottom: 52px;
+                left: -20px;
+            }
+        }
     }
 }
 
