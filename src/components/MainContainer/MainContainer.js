@@ -14,6 +14,7 @@ export default function MainContainer({ phone, dp, contact }) {
     const [value, setValue] = useState("");
     const [loader, setLoader] = useState(false);
     const [emojiOpen, setEmojiOpen] = useState(false)
+    const [viewImage, setViewImage] = useState(false);
 
     const setRef = useCallback(node => {
         if (node) node.scrollIntoView({ smooth: true })
@@ -54,6 +55,9 @@ export default function MainContainer({ phone, dp, contact }) {
         getData(result);
         setLoader(false)
     }
+    const handleDobleClick = () => {
+        setViewImage(!viewImage)
+    }
     useEffect(() => {
         getNewMessages();
     }, [phone])
@@ -62,7 +66,7 @@ export default function MainContainer({ phone, dp, contact }) {
         <div id="mainContainer">
             <Header>
                 <div className="title">
-                    <div className="img">
+                    <div className="img" onDoubleClick={handleDobleClick}>
                         <img src={photo} alt="profile pic" />
                     </div>
                     <div className="user-abbri">
@@ -78,6 +82,11 @@ export default function MainContainer({ phone, dp, contact }) {
                     }
                 </div>
             </Header>
+            {
+                viewImage && <div className="viewimage" onDoubleClick={handleDobleClick}>
+                    <img src={photo} alt="" width="auto" height="80%" />
+                </div>
+            }
             {loader || !state ? (<CircularProgress />)
                 : (<section>
                     {

@@ -24,7 +24,7 @@ export default function ImageUpload({ close, profilePic, setProfilePic }) {
                     300,
                     300,
                     "JPEG",
-                    90,
+                    100,
                     0,
                     (uri) => {
                         console.log(uri);
