@@ -70,7 +70,7 @@ export default function ImageUpload({ close, profilePic, setProfilePic }) {
                 <input type="file" onChange={fileChangedHandler} />
             </div>
             <div className="image-wrapper">
-                <img src={prev} alt="" onTouchStart={handleDobleClick} onDoubleClick={handleDobleClick} width="auto" height="300" />
+                <img src={prev} alt="" onTouchStart={handleDobleClick} onDoubleClick={handleDobleClick} width="auto" height="100%" />
             </div>
             <div className="btn-wrapper">
                 <Button onClick={handleClick} variant="contained" color="success">Upload</Button>
