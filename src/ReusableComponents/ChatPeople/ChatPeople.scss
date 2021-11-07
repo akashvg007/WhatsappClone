@@ -26,7 +26,7 @@
         width: 78%;
         display: flex;
         justify-content: space-between;
-        padding: 0 10px;
+        padding-left: 10px;
         .title{
             display: flex;
             flex-direction: column;
@@ -51,3 +51,32 @@
         }
     }
 }
+@media only screen and (min-width: 427px) {
+    #chatpeople{
+        .details {
+            display: flex;
+        }
+    }
+  }
+@media only screen and (max-width: 660px) {
+    #chatpeople{
+        .details {
+            .time{
+                display: none;
+            }
+            .title{
+                .lastMsg{
+                    display: none;
+                }
+            }
+        }
+    }
+  }
+@media only screen and (max-width: 426px) {
+    #chatpeople{
+        justify-content: center;
+        .details {
+            display: none;
+        }
+    }
+  }

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import Popup from '../../ReusableComponents/popup/popup';
 import { addContact } from "../../Api/services";
+import SelectField from '../../ReusableComponents/Select/Select';
 
 export default function LeftPopup({ getAllContacts, setAnchorEl, popup }) {
     const [phone, setPhone] = useState("")
     const [contactName, setContactName] = useState("")
     const [open, setOpen] = useState(popup)
+    const [countryCode, setCountryCode] = useState('+91')
     const PhoneChange = e => {
         setPhone(e.target.value);
     }
@@ -16,6 +18,9 @@ export default function LeftPopup({ getAllContacts, setAnchorEl, popup }) {
     useEffect(() => {
         setOpen(popup)
     }, [popup])
+    const handlecountryChange = (val) => {
+        setCountryCode(val)
+    }
     const handleAddContact = async (e) => {
         const no = "+91" + phone;
         await addContact({ phone: no, name: contactName });
@@ -45,13 +50,18 @@ export default function LeftPopup({ getAllContacts, setAnchorEl, popup }) {
     return (
         <Popup open={open} title="Add Contact" btns={buttonList} handleClose={popupClose}>
             <div className="text-field-wrapper">
-                <TextField id="phone"
-                    style={{ width: "100%" }}
-                    label="phone number"
-                    value={phone}
-                    onChange={PhoneChange}
-                    variant="standard"
-                    inputProps={{ maxLength: 10 }} />
+                <div className="code">
+                    <SelectField data={["+91", "+97"]} change={handlecountryChange} newValue={countryCode} value={countryCode} />
+                </div>
+                <div className="phone">
+                    <TextField id="phone"
+                        style={{ width: "100%" }}
+                        label="phone number"
+                        value={phone}
+                        onChange={PhoneChange}
+                        variant="standard"
+                        inputProps={{ maxLength: 10 }} />
+                </div>
             </div>
             <div className="text-field-wrapper">
                 <TextField id="name-text-field"

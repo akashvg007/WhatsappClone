@@ -7,10 +7,10 @@ export default function Popup(props) {
     return (
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>{title}</DialogTitle>
-            <DialogContent>
+            <DialogContent className="min-width">
                 {children}
             </DialogContent>
-            <DialogActions>
+            <DialogActions >
                 {
                     btns && btns.map(btn => (
                         <Button onClick={btn.handleClick}>{btn.title}</Button>

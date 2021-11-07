@@ -13,19 +13,17 @@ export function ConversationsProvider({ id, children }) {
   const socket = useSocket()
   const [state, setState] = useState([])
 
-  const addMessageToConversation = async ({ recipient, text, sender, status = 2 }) => {
-    console.log("addMessageToConversation", recipient, text, sender);
-    const myNum = localStorage.getItem("phone");
-    const newChat = [...state];
+  const myNum = localStorage.getItem("phone");
+  const addMessageToConversation = useCallback(async ({ recipient, text, sender, status = 2 }) => {
     const messageObj = { msg: text, to: recipient, from: sender, time: Date.now(), status };
-    newChat.unshift(messageObj)
-    console.log("Conversations Provider::newchat", newChat);
-
-    setState(newChat)
-    if (recipient === myNum) {
+    setState(prev => {
+      return [messageObj, ...prev]
+    })
+    debugger;
+    if (sender === myNum && status === 1) {
       await sendMessage(messageObj);
     }
-  }
+  }, [setState])
 
   useEffect(() => {
     if (socket == null) return
@@ -37,7 +35,6 @@ export function ConversationsProvider({ id, children }) {
 
   function sendMessageContext(recipient, text) {
     socket.emit('send-message', { recipient, text })
-
     addMessageToConversation({ recipient, text, sender: id, status: 1 })
   }
 

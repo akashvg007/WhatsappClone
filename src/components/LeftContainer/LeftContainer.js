@@ -42,7 +42,7 @@ export default function LeftContainer({ click, list, contact, getAllContacts }) 
     useEffect(() => {
         const other = {};
         Object.keys(contact).forEach((cnt) => {
-            if (Object.keys(list).length > 0 && !list[cnt]) {
+            if (!list[cnt]) {
                 other[cnt] = contact[cnt];
             }
         })

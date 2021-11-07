@@ -5,13 +5,18 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export default function SelectField(props) {
-    const { data = [], newVal, value = '', label, lid = "select-label-id", id = "select-id" } = props;
+    const { data = [], value = '', newValue = null, label, lid = "select-label-id", id = "select-id", change } = props;
     const [selected, setSelected] = React.useState(value);
 
     const handleChange = (event) => {
-        setSelected(event.target.value);
-        // newVal(event.target.value);
+        const { value } = event.target;
+        setSelected(value);
+        change(value)
     };
+
+    React.useEffect(() => {
+        if (newValue != null) setSelected(newValue)
+    }, [newValue])
 
     return (
         <div>
