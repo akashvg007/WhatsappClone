@@ -7,7 +7,9 @@ import { getLastMessageHelper } from '../../Helper/logicHelper';
 export default function ChatPeople(props) {
     const { data, click, name, contact, newContact = false } = props;
     const [lastMsg, setLastMsg] = useState({});
-    const photo = props.photo || "avatar.jpg";
+
+    let photo = "avatar.jpg";
+    if (props?.photo[name]) photo = props.photo[name]
     const handleClick = e => {
         click(name);
     }

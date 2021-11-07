@@ -13,11 +13,17 @@ export const getBaseUrl = () => {
 
 
 export const endpoints = {
-    register: "/user/register",
-    verify: "/user/verify",
-    sendMsg: "/user/send-msg",
-    getMsg: "/user/get-msg",
-    getRecent: "/user/getrecent",
-    getcontacts: "/user/getcontacts",
-    addcontact: "/user/addcontact",
+    register: "/register",
+    verify: "/verify",
+    sendMsg: "/send-msg",
+    getMsg: "/get-msg",
+    getRecent: "/getrecent",
+    getcontacts: "/getcontacts",
+    addcontact: "/addcontact",
+    upload: '/upload',
+    getAllContacts: "/getAllMyUserDetails"
+}
+
+export const getEndpoint = (key) => {
+    return "/user" + endpoints[key];
 }
