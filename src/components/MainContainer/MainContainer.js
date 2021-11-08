@@ -66,6 +66,7 @@ export default function MainContainer({ phone, dp, contact }) {
         <div id="mainContainer">
             <Header>
                 <div className="title">
+
                     <div className="img" onTouchStart={handleDobleClick} onDoubleClick={handleDobleClick}>
                         <img src={photo} alt="profile pic" />
                     </div>

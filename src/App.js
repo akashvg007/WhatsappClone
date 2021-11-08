@@ -7,22 +7,22 @@ import Register from './components/Register/Register';
 import { getRecentChats, getAllMyContacts, getContact } from "./Api/services";
 import { ConversationsProvider } from './contexts/ConversationsProvider';
 import { SocketProvider } from './contexts/SocketProvider';
+import { Menu } from '@mui/icons-material';
 
 function App() {
   const [selected, setSelected] = useState(false);
   const [registered, setRegistered] = useState(false);
   const [currentUser, setCurrentUser] = useState('')
-  const [chatMsgs, setChatMsgs] = useState([])
   const [chatlist, setChatlist] = useState({})
   const [contact, setContact] = useState({});
   const [loader, setLoader] = useState(false);
   const [pp, setPP] = useState({})
+  const [showMenu, setShowMenu] = useState(false);
 
   const myPhone = localStorage.getItem("phone") || ""
   const getChats = async () => {
     setLoader(true);
     const chats = await getRecentChats();
-    setChatMsgs(chats);
     const users = {};
     chats.map(chat => {
       const { from, to, msg, time, status } = chat;
@@ -65,6 +65,11 @@ function App() {
     setLoader(false);
   }
 
+  const handleMenuClick = () => {
+    console.log("menu clicked");
+    setShowMenu(!showMenu)
+  }
+
   useEffect(() => {
     if (registered) getChats();
   }, [registered])
@@ -93,7 +98,16 @@ function App() {
       <div className="main-body">
         {registered ? (
           <div className="container">
-            <div className="lefthandmenu">
+            <div className="menu-short-wrapper">
+              {showMenu && <div className="lefthandmenu-short" style={{ width: showMenu ? 300 : 0 }}>
+                <LeftHandMenu click={handleClick} dp={pp[myPhone]} profiles={pp} getAllContacts={getAllContacts}
+                  contact={contact} list={chatlist} />
+              </div>}
+              <div className="hamburgerMenu" onClick={handleMenuClick}>
+                <Menu />
+              </div>
+            </div>
+            <div className="lefthandmenu" >
               <LeftHandMenu click={handleClick} dp={pp[myPhone]} profiles={pp} getAllContacts={getAllContacts}
                 contact={contact} list={chatlist} />
             </div>

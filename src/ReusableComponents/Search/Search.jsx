@@ -11,7 +11,7 @@ const StyledInputElement = styled('input')`
   background: rgb(243, 246, 249);
   border: 1px solid #e5e8ec;
   border-radius: 20px;
-  padding: 14px 8px;
+  padding: 14px 0 14px 8px;
   color: #20262d;
   height:calc(100% - 14px);
   &:focus-visible {
