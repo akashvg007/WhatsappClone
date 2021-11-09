@@ -5,7 +5,7 @@ export default function Popup(props) {
     const { open, handleClose, title, children, btns } = props;
 
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose} onClick={e => e.stopPropagation()}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent className="min-width">
                 {children}

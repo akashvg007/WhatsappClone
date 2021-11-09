@@ -19,18 +19,18 @@ export function ConversationsProvider({ id, children }) {
     setState(prev => {
       return [messageObj, ...prev]
     })
-    debugger;
     if (sender === myNum && status === 1) {
       await sendMessage(messageObj);
     }
   }, [setState])
 
+
   useEffect(() => {
     if (socket == null) return
-    console.log("inside the receiver", socket);
-
     socket.on('receive-message', addMessageToConversation)
-    return () => socket.off('receive-message')
+    return () => {
+      socket.off('receive-message')
+    }
   }, [socket, addMessageToConversation])
 
   function sendMessageContext(recipient, text) {

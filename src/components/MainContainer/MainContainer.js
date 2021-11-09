@@ -8,13 +8,16 @@ import { getMessageOne } from "../../Api/services";
 import { useConversations } from '../../contexts/ConversationsProvider';
 import CircularProgress from '@mui/material/CircularProgress';
 import Emoji from '../../ReusableComponents/Emoji/Emoji'
+import { useSocket } from '../../contexts/SocketProvider';
 
 export default function MainContainer({ phone, dp, contact }) {
-    const iconArr = [{ Comp: Search, click: null }, { Comp: MoreVert, click: null }];
+    const socket = useSocket()
+    const iconArr = [{ Comp: Search, click: null, key: 'icon1' }, { Comp: MoreVert, click: null, key: 'icon2' }];
     const [value, setValue] = useState("");
     const [loader, setLoader] = useState(false);
     const [emojiOpen, setEmojiOpen] = useState(false)
     const [viewImage, setViewImage] = useState(false);
+    const [online, setOnline] = useState('offline');
 
     const setRef = useCallback(node => {
         if (node) node.scrollIntoView({ smooth: true })
@@ -62,22 +65,46 @@ export default function MainContainer({ phone, dp, contact }) {
         getNewMessages();
     }, [phone])
 
+    const checkOnline = ({ ids, status }) => {
+        try {
+            // console.log('checkOnline', ids, status);
+            if (ids && Array.isArray(ids) && ids.length && status == 1) {
+                if (ids.includes(phone)) setOnline('online');
+                else setOnline('offline')
+            }
+            else setOnline('offline');
+        }
+        catch (e) {
+            console.log("something went wrong", e.message);
+            setOnline('offline')
+
+        }
+    }
+
+    useEffect(() => {
+        if (socket == null) return
+        socket.on('online', checkOnline)
+        socket.on('offline', checkOnline)
+        return () => socket.off('receive-message')
+    }, [socket, checkOnline])
+
     return (
         <div id="mainContainer">
             <Header>
                 <div className="title">
+
                     <div className="img" onTouchStart={handleDobleClick} onDoubleClick={handleDobleClick}>
                         <img src={photo} alt="profile pic" />
                     </div>
                     <div className="user-abbri">
                         <div className="user-name">{contact[phone] || phone}</div>
-                        <div className="user-lastseen">{'online'}</div>
+                        <div className="user-lastseen">{online}</div>
                     </div>
                 </div>
                 <div className="icons">
                     {
-                        iconArr.map(icon => (
-                            <CommonIcon Component={icon.Comp} click={icon.click} />
+                        iconArr.map((icon, idx) => (
+                            <CommonIcon key={icon.key || idx + "icon"} Component={icon.Comp} click={icon.click} />
                         ))
                     }
                 </div>

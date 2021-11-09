@@ -16,25 +16,28 @@ export default function LeftContainer({ click, list, contact, getAllContacts, pr
     const [anchorEl, setAnchorEl] = useState(null);
     const [open, setOpen] = useState(false);
     const [showUploader, setShowUploader] = useState(false);
-    const [profilePic, setProfilePic] = useState("pp.jpg");
+    const [profilePic, setProfilePic] = useState("avatar.jpg");
 
     useEffect(() => {
         console.log("data change", dp);
         if (dp) setProfilePic(dp);
     }, [dp])
 
-    const handleProfileChange = () => {
+    const handleProfileChange = (e) => {
+        e.stopPropagation()
         const result = window.confirm("do you want to change/add the profile");
         if (result) setShowUploader(true)
     }
     const handleClickMore = (e) => {
         console.log("icon clicked", e);
+        e.stopPropagation()
         setAnchorEl(e.currentTarget);
     }
     const handleClose = (e) => {
         setAnchorEl(null);
     }
-    const addContactFn = () => {
+    const addContactFn = (e) => {
+        e.stopPropagation()
         setOpen(true)
     }
     const dummy = () => {
