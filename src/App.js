@@ -7,8 +7,8 @@ import Register from './components/Register/Register';
 import { getRecentChats, getAllMyContacts, getContact } from "./Api/services";
 import { ConversationsProvider } from './contexts/ConversationsProvider';
 import { SocketProvider } from './contexts/SocketProvider';
-import { Menu } from '@mui/icons-material';
-
+import { ChevronRight } from '@mui/icons-material';
+import Drawer from './ReusableComponents/Drawer/Drawer';
 function App() {
   const [selected, setSelected] = useState(false);
   const [registered, setRegistered] = useState(false);
@@ -83,6 +83,8 @@ function App() {
     }
   }, [chatlist])
 
+  const leftHandStyle = { width: showMenu ? 300 : 0, height: '100%' }
+
   const dashboard = (
     <SocketProvider id={myPhone}>
       <ConversationsProvider id={myPhone}>
@@ -99,12 +101,17 @@ function App() {
         {registered ? (
           <div className="container">
             <div className="menu-short-wrapper">
-              {showMenu && <div className="lefthandmenu-short" style={{ width: showMenu ? 300 : 0 }}>
-                <LeftHandMenu click={handleClick} dp={pp[myPhone]} profiles={pp} getAllContacts={getAllContacts}
-                  contact={contact} list={chatlist} />
-              </div>}
+              {
+                <Drawer value={showMenu} setVal={setShowMenu} >
+                  <div className="lefthandmenu-short" style={leftHandStyle}>
+                    <LeftHandMenu click={handleClick} dp={pp[myPhone]} profiles={pp} getAllContacts={getAllContacts}
+                      contact={contact} list={chatlist} />
+                  </div>
+                </Drawer>
+
+              }
               <div className="hamburgerMenu" onClick={handleMenuClick}>
-                <Menu />
+                <ChevronRight />
               </div>
             </div>
             <div className="lefthandmenu" >

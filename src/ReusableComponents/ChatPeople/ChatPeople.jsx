@@ -9,7 +9,9 @@ export default function ChatPeople(props) {
     const [lastMsg, setLastMsg] = useState({});
 
     let photo = "avatar.jpg";
-    if (props?.photo[name]) photo = props.photo[name]
+    if (props?.photo[name]) photo = props.photo[name];
+    let contactName = contact || name;
+    if (!contact && name === "+918848275018") contactName = "Admin"
     const handleClick = e => {
         click(name);
     }
@@ -24,7 +26,7 @@ export default function ChatPeople(props) {
             <div className="details">
                 <div className="title">
                     <div className="name">
-                        {contact || name}
+                        {contactName}
                     </div>
                     {!newContact && <div className="lastMsg">
                         <div className="status">

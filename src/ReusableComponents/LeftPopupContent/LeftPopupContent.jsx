@@ -10,9 +10,11 @@ export default function LeftPopup({ getAllContacts, setAnchorEl, popup }) {
     const [open, setOpen] = useState(popup)
     const [countryCode, setCountryCode] = useState('+91')
     const PhoneChange = e => {
+        e.stopPropagation();
         setPhone(e.target.value);
     }
     const contactNameChange = e => {
+        e.stopPropagation()
         setContactName(e.target.value);
     }
     useEffect(() => {
@@ -22,14 +24,12 @@ export default function LeftPopup({ getAllContacts, setAnchorEl, popup }) {
         setCountryCode(val)
     }
     const handleAddContact = async (e) => {
+        e.stopPropagation()
         const no = "+91" + phone;
         await addContact({ phone: no, name: contactName });
         setOpen(false)
         setAnchorEl(null)
         getAllContacts()
-    }
-    const addContactFn = () => {
-        setOpen(true)
     }
     const dummy = () => {
         // need to work on the pop up msg
@@ -37,18 +37,12 @@ export default function LeftPopup({ getAllContacts, setAnchorEl, popup }) {
     const popupClose = e => {
         setOpen(false)
     }
-    const menuList = [
-        { title: "Add a Contact", handleClick: addContactFn },
-        { title: "Dummy", handleClick: dummy },
-        { title: "Dummy", handleClick: dummy },
-        { title: "Dummy", handleClick: dummy }
-    ]
     const buttonList = [
         { title: "Add", handleClick: handleAddContact },
         { title: "Cancel", handleClick: dummy }
     ]
     return (
-        <Popup open={open} title="Add Contact" btns={buttonList} handleClose={popupClose}>
+        <Popup open={open} title="Add Contact" className="popup-wrapper" btns={buttonList} handleClose={popupClose}>
             <div className="text-field-wrapper">
                 <div className="code">
                     <SelectField data={["+91", "+97"]} change={handlecountryChange} newValue={countryCode} value={countryCode} />

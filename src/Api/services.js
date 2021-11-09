@@ -74,8 +74,20 @@ export const verifyOTP = async (payload) => {
     }
 }
 
+const lastTime = (key) => {
+    const Prefixedkey = "whatsApp-chat-" + key;
+    const time = localStorage.getItem(Prefixedkey);
+    const now = Date.now();
+    console.log("lastTime", now);
+
+    localStorage.setItem(Prefixedkey, now)
+    return time;
+}
+
 export const getMessageOne = async (payload) => {
     try {
+        const lastMsgGetTime = lastTime(payload?.to)
+        payload.lastTime = lastMsgGetTime
         const url = baseUrl + getEndpoint('getMsg');
         const result = await commonPost(url, payload);
         return result

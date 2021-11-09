@@ -38,7 +38,15 @@
                 height: 100%;
                 .hamburgerMenu{
                     z-index: 2;
-                    padding: 20px;
+                    top: 45%;
+                    padding: 5px;
+                    position: absolute;
+                    background-color: #a19e9a;
+                    color: white;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 4px;
                 }
                 .lefthandmenu-short {
                     z-index: 1;
