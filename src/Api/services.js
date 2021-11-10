@@ -74,23 +74,38 @@ export const verifyOTP = async (payload) => {
     }
 }
 
-const lastTime = (key) => {
+const getLastTime = (key) => {
     const Prefixedkey = "whatsApp-chat-" + key;
-    const time = localStorage.getItem(Prefixedkey);
+    const data = localStorage.getItem(Prefixedkey);
     const now = Date.now();
     console.log("lastTime", now);
+    const obj = !data ? { time: 0, data: [] } : JSON.parse(data);
+    if (!data) localStorage.setItem(Prefixedkey, JSON.stringify(obj))
+    return [obj.time, now];
+}
 
-    localStorage.setItem(Prefixedkey, now)
-    return time;
+const setLastTime = (key, result, time) => {
+    const Prefixedkey = "whatsApp-chat-" + key;
+    const data = localStorage.getItem(Prefixedkey);
+    const obj = JSON.parse(data);
+    // obj.data = obj.data.concate(result);
+    console.log("setLastTime", obj.data, result);
+
+    obj.data = result.concat(obj.data)
+    obj.time = time;
+    localStorage.setItem(Prefixedkey, JSON.stringify(obj))
 }
 
 export const getMessageOne = async (payload) => {
     try {
-        const lastMsgGetTime = lastTime(payload?.to)
-        payload.lastTime = lastMsgGetTime
+        const [lastTime, time] = getLastTime(payload?.to)
+        console.log("lastTime, time", lastTime, time);
+
+        payload.lastTime = lastTime;
         const url = baseUrl + getEndpoint('getMsg');
         const result = await commonPost(url, payload);
-        return result
+        setLastTime(payload?.to, result, time);
+        return true;
     }
     catch (err) {
         console.log("something went wrong", err.message);

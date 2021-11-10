@@ -9,6 +9,7 @@ import { useConversations } from '../../contexts/ConversationsProvider';
 import CircularProgress from '@mui/material/CircularProgress';
 import Emoji from '../../ReusableComponents/Emoji/Emoji'
 import { useSocket } from '../../contexts/SocketProvider';
+import moment from 'moment';
 
 export default function MainContainer({ phone, dp, contact }) {
     const socket = useSocket()
@@ -18,6 +19,8 @@ export default function MainContainer({ phone, dp, contact }) {
     const [emojiOpen, setEmojiOpen] = useState(false)
     const [viewImage, setViewImage] = useState(false);
     const [online, setOnline] = useState('offline');
+
+    // let c_date = moment(chat.time).format("MMM Do YY");
 
     const setRef = useCallback(node => {
         if (node) node.scrollIntoView({ smooth: true })
@@ -54,8 +57,12 @@ export default function MainContainer({ phone, dp, contact }) {
     const getNewMessages = async () => {
         setLoader(true)
         const payload = { from: myNum, to: phone }
-        const result = await getMessageOne(payload);
-        getData(result);
+        await getMessageOne(payload);
+        const result = localStorage.getItem("whatsApp-chat-" + phone)
+        const data = JSON.parse(result).data;
+        console.log("data", data);
+
+        getData(data);
         setLoader(false)
     }
     const handleDobleClick = () => {
@@ -114,17 +121,27 @@ export default function MainContainer({ phone, dp, contact }) {
                     <img src={photo} alt="" width="auto" height="80%" />
                 </div>
             }
-            {loader || !state ? (<CircularProgress />)
+            {loader || !state ? (<div className="loader">
+                <CircularProgress />
+            </div>)
                 : (<section>
                     {
                         state?.map((chat, idx) => {
                             const lastMsg = idx === 0;
+                            const date = moment(chat.time).format("MMM Do YY");
+
                             return (
-                                <div ref={lastMsg ? setRef : null} className={`chat-region ${chat.from === myNum ? 'right' : 'left'}-side`}>
-                                    <div className={`chat ${chat.from === myNum ? 'right' : 'left'}-chat`}>
-                                        {chat.msg}
+                                <>
+                                    {/* {date !=c_date && <div className="chat-date">date</div>} */}
+                                    <div ref={lastMsg ? setRef : null} className={`chat-region ${chat.from === myNum ? 'right' : 'left'}-side`}>
+                                        <div className={`chat ${chat.from === myNum ? 'right' : 'left'}-chat`}>
+                                            <div className="chatwrapper">{chat.msg}</div>
+                                            <div className={`time  ${chat.from === myNum ? 'right' : 'left'}-side`}>
+                                                {moment(chat.time).format('LT')}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </>
                             )
                         })
                     }
