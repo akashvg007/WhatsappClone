@@ -54,13 +54,6 @@
                     height: 100%;
                     border-right: 1px solid var(--br-clr);
                     transition: all 0.5s ease-in-out;
-                    animation: widthUp 0.5s
-                }
-                @keyframes widthUp {
-                    0%   {width: 0px;}
-                    25%  {width: 75px;}
-                    50%  {width: 200px}
-                    100% {width: 300px;}
                 }
             }
             .lefthandmenu{
@@ -110,22 +103,6 @@
         display: none;
     }
     .hamburgerMenu {
-        display: none;
+        display: none !important;
     }
-  }
-//   @media only screen and (max-width: 426px) {
-//     body {
-//       background-color: lightblue;
-//     }
-//     .lefthandmenu{
-//         width: 15% !important;
-//         height: 100vh;
-//         overflow-x: hidden;
-//     }
-//     .main-area{
-//         width: 85% !important;
-//     }
-//     .main-body {
-//         overflow: hidden;
-//     }
-//   }
+}
