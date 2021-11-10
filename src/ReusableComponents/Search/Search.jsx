@@ -25,7 +25,8 @@ const StyledInputElement = styled('input')`
 
 const CustomInput = React.forwardRef(function CustomInput(props, ref) {
   return (
-    <InputUnstyled components={{ Input: StyledInputElement }} {...props} className={props.cls} ref={ref} />
+    <InputUnstyled components={{ Input: StyledInputElement }}
+      {...props} className={props.cls} ref={ref} />
   );
 });
 
@@ -34,5 +35,6 @@ export default function SearchField(props) {
   const handleChange = (e) => {
     setVal(e.target.value)
   }
-  return <CustomInput value={value} onKeyDown={KeyDown} onChange={handleChange} aria-label="Demo input" placeholder={text} />;
+  return (<CustomInput value={value} onKeyDown={KeyDown} onChange={handleChange}
+    aria-label="Demo input" placeholder={text} />);
 }

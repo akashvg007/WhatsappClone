@@ -84,15 +84,16 @@ export default function LeftContainer({ click, list, contact, getAllContacts, pr
             </div>
             <div className="list-container">
                 {
-                    Object.keys(list).map(chat => (
-                        <ChatPeople contact={contact[chat]} photo={profiles} name={chat} click={click} data={list[chat]} />
-                    ))
-                }
-                {
                     Object.keys(otherContacts).map(chat => (
                         <ChatPeople contact={otherContacts[chat]} photo={profiles} name={chat} click={click} newContact={true} data={otherContacts[chat]} />
                     ))
                 }
+                {
+                    Object.keys(list).map(chat => (
+                        <ChatPeople contact={contact[chat]} photo={profiles} name={chat} click={click} data={list[chat]} />
+                    ))
+                }
+
             </div>
             <CustomMenu anchorEl={anchorEl} handleClose={handleClose} menuList={menuList} />
             <LeftPopup getAllContacts={getAllContacts} setAnchorEl={setAnchorEl} popup={open} />

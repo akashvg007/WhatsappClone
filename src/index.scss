@@ -21,6 +21,9 @@ body{
   width: 500px;
   max-width: calc(100% - 48px);
 }
+.cursor-ptr {
+  cursor: pointer;
+}
 .viewimage {
   position: fixed;
   left: 0;
