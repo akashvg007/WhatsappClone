@@ -101,7 +101,7 @@ export default function LeftContainer({ click, list, contact, getAllContacts, pr
                     <>
                         <div className="upload-backdrop" onClick={() => setShowUploader(false)}></div>
                         <div className="upload">
-                            <ImageUpload profilePic={profilePic} setProfilePic={setProfilePic} close={setShowUploader} />
+                            <ImageUpload profilePic={profilePic} setProfilePic={setProfilePic} close={() => setShowUploader(false)} />
                         </div>
                     </>
                 )
