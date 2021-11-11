@@ -19,8 +19,7 @@ export default function MainContainer({ phone, dp, contact }) {
     const [emojiOpen, setEmojiOpen] = useState(false)
     const [viewImage, setViewImage] = useState(false);
     const [online, setOnline] = useState('offline');
-
-    // let c_date = moment(chat.time).format("MMM Do YY");
+    const [showNumber, setShowNumber] = useState(false);
 
     const setRef = useCallback(node => {
         if (node) node.scrollIntoView({ smooth: true })
@@ -84,7 +83,6 @@ export default function MainContainer({ phone, dp, contact }) {
         catch (e) {
             console.log("something went wrong", e.message);
             setOnline('offline')
-
         }
     }
 
@@ -92,7 +90,6 @@ export default function MainContainer({ phone, dp, contact }) {
         if (socket == null) return
         socket.on('online', checkOnline)
         socket.on('offline', checkOnline)
-        return () => socket.off('receive-message')
     }, [socket, checkOnline])
 
     return (
@@ -104,7 +101,12 @@ export default function MainContainer({ phone, dp, contact }) {
                         <img src={photo} alt="profile pic" />
                     </div>
                     <div className="user-abbri">
-                        <div className="user-name">{contact[phone] || phone}</div>
+                        {!showNumber && <div className="user-name cursor-ptr" onClick={e => setShowNumber(!showNumber)}>
+                            {contact[phone] || phone}
+                        </div>}
+                        {showNumber && <div className="user-name cursor-ptr" onClick={e => setShowNumber(!showNumber)}>
+                            {phone}
+                        </div>}
                         <div className="user-lastseen">{online}</div>
                     </div>
                 </div>
@@ -129,10 +131,20 @@ export default function MainContainer({ phone, dp, contact }) {
                         state?.map((chat, idx) => {
                             const lastMsg = idx === 0;
                             const date = moment(chat.time).format("MMM Do YY");
+                            const curr = moment(chat.time).format("MMM Do YY");
+                            let prev = "";
+                            if (state[idx + 1]) prev = moment(state[idx + 1].time).format("MMM Do YY");
+                            const showDate = () => {
+                                const compareString = curr.localeCompare(prev)
+                                if (compareString !== 0) (
+                                    <div className="chat-date">
+                                        <div className="date-wrapper">{date}</div>
+                                    </div>
+                                )
+                            }
 
                             return (
                                 <>
-                                    {/* {date !=c_date && <div className="chat-date">date</div>} */}
                                     <div ref={lastMsg ? setRef : null} className={`chat-region ${chat.from === myNum ? 'right' : 'left'}-side`}>
                                         <div className={`chat ${chat.from === myNum ? 'right' : 'left'}-chat`}>
                                             <div className="chatwrapper">{chat.msg}</div>
@@ -141,6 +153,7 @@ export default function MainContainer({ phone, dp, contact }) {
                                             </div>
                                         </div>
                                     </div>
+                                    {showDate()}
                                 </>
                             )
                         })

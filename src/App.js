@@ -83,6 +83,11 @@ function App() {
     }
   }, [chatlist])
 
+  // useEffect(() => {
+  //   const el = document.documentElement;
+  //   if (el.requestFullscreen) el.requestFullscreen()
+  // }, [])
+
   const leftHandStyle = { width: showMenu ? 300 : 0, height: '100%' }
 
   const dashboard = (

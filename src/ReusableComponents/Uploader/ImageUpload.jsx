@@ -3,6 +3,8 @@ import Resizer from "react-image-file-resizer";
 import { Button } from '@mui/material';
 import { uploadImages } from "../../Api/services";
 import { CircularProgress } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
+import IconWrapper from "../CommonIconWrapper/CommonIconWrapper";
 
 export default function ImageUpload({ close, profilePic, setProfilePic }) {
     const [image, setImage] = useState(null);
@@ -65,7 +67,10 @@ export default function ImageUpload({ close, profilePic, setProfilePic }) {
     }
 
     return (
-        <div className="uploader-container">
+        <div className="uploader-container left-chat">
+            <div className="close">
+                <IconWrapper Component={CloseIcon} click={close} />
+            </div>
             <div className="input-wrapper">
                 <input type="file" onChange={fileChangedHandler} />
             </div>

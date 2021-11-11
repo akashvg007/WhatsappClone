@@ -13,25 +13,30 @@ export function ConversationsProvider({ id, children }) {
   const socket = useSocket()
   const [state, setState] = useState([])
 
-  const myNum = localStorage.getItem("phone");
+  // const myNum = localStorage.getItem("phone");
+
   const addMessageToConversation = useCallback(async ({ recipient, text, sender, status = 2 }) => {
+    // console.log("received msg", recipient, text, sender, status);
     const messageObj = { msg: text, to: recipient, from: sender, time: Date.now(), status };
     setState(prev => {
       return [messageObj, ...prev]
     })
-    if (sender === myNum && status === 1) {
-      await sendMessage(messageObj);
-    }
+    await sendMessage(messageObj);
   }, [setState])
 
+  const receivedMessage = ({ recipient, text, sender, status = 2 }) => {
+    // console.log("received Data", recipient, text, sender, status = 2);
+    const messageObj = { msg: text, to: recipient, from: sender, time: Date.now(), status };
+    setState(prev => {
+      return [messageObj, ...prev]
+    })
+  }
 
   useEffect(() => {
     if (socket == null) return
-    socket.on('receive-message', addMessageToConversation)
-    return () => {
-      socket.off('receive-message')
-    }
-  }, [socket, addMessageToConversation])
+    socket.on('receive-message', receivedMessage)
+    return () => socket.off('receive-message')
+  }, [socket, addMessageToConversation, receivedMessage])
 
   function sendMessageContext(recipient, text) {
     socket.emit('send-message', { recipient, text })
