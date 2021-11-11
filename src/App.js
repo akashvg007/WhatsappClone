@@ -73,10 +73,9 @@ function App() {
   }
 
   const handleUpdateLastTime = () => {
-    updateLastSeen();
     setInterval(() => {
       updateLastSeen();
-    }, 30000)
+    }, 60000)
   }
 
   useEffect(() => {
