@@ -4,7 +4,7 @@ import "./MainContainer.scss";
 import SearchField from '../../ReusableComponents/Search/Search';
 import { Search, MoreVert, InsertEmoticon, Attachment, Mic, Send } from '@mui/icons-material';
 import CommonIcon from "../../ReusableComponents/CommonIconWrapper/CommonIconWrapper";
-import { getMessageOne } from "../../Api/services";
+import { getMessageOne, getLastSeen } from "../../Api/services";
 import { useConversations } from '../../contexts/ConversationsProvider';
 import CircularProgress from '@mui/material/CircularProgress';
 import Emoji from '../../ReusableComponents/Emoji/Emoji'
@@ -20,6 +20,7 @@ export default function MainContainer({ phone, dp, contact }) {
     const [viewImage, setViewImage] = useState(false);
     const [online, setOnline] = useState('offline');
     const [showNumber, setShowNumber] = useState(false);
+    const [lastSeen, SetLastSeen] = useState('');
 
     const setRef = useCallback(node => {
         if (node) node.scrollIntoView({ smooth: true })
@@ -67,18 +68,34 @@ export default function MainContainer({ phone, dp, contact }) {
     const handleDobleClick = () => {
         setViewImage(!viewImage)
     }
+    const handleLastSeen = async () => {
+        const result = await getLastSeen({ phone });
+        if (!result) return;
+        const time = result[0]?.lastseen;
+        if (!time) return
+        const date = moment(time).calendar();
+        SetLastSeen(date)
+    }
+    useEffect(() => {
+        handleLastSeen()
+    }, [phone, online])
+
     useEffect(() => {
         getNewMessages();
     }, [phone])
 
-    const checkOnline = ({ ids, status }) => {
+    const checkOnline = async ({ ids, status }) => {
         try {
             // console.log('checkOnline', ids, status);
             if (ids && Array.isArray(ids) && ids.length && status == 1) {
-                if (ids.includes(phone)) setOnline('online');
+                if (ids.includes(phone)) {
+                    setOnline('online');
+                }
                 else setOnline('offline')
             }
-            else setOnline('offline');
+            else {
+                setOnline('offline');
+            }
         }
         catch (e) {
             console.log("something went wrong", e.message);
@@ -107,7 +124,7 @@ export default function MainContainer({ phone, dp, contact }) {
                         {showNumber && <div className="user-name cursor-ptr" onClick={e => setShowNumber(!showNumber)}>
                             {phone}
                         </div>}
-                        <div className="user-lastseen">{online}</div>
+                        <div className="user-lastseen">{online == 'online' ? online : lastSeen}</div>
                     </div>
                 </div>
                 <div className="icons">

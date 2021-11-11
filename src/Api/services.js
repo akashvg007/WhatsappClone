@@ -151,6 +151,31 @@ export const getContact = async () => {
 
     }
 }
+export const updateLastSeen = async (payload) => {
+    try {
+        const url = baseUrl + getEndpoint('updateLastSeen');
+        const result = await commonPost(url, payload);
+        console.log("updateLastSeen::result", result);
+        return result
+    }
+    catch (err) {
+        console.log("something went wrong", err.message);
+
+    }
+}
+export const getLastSeen = async (payload) => {
+    try {
+        const url = baseUrl + getEndpoint('getlastSeenL');
+        const result = await commonPost(url, payload);
+        console.log("getLastSeen::result", result);
+        return result
+    }
+    catch (err) {
+        console.log("something went wrong", err.message);
+
+    }
+}
+
 export const addContact = async (payload) => {
     try {
         const url = baseUrl + getEndpoint('addcontact');
