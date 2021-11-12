@@ -21,7 +21,9 @@ export const endpoints = {
     getcontacts: "/getcontacts",
     addcontact: "/addcontact",
     upload: '/upload',
-    getAllContacts: "/getAllMyUserDetails"
+    getAllContacts: "/getAllMyUserDetails",
+    updateLastSeen: "/update-last-seen",
+    getlastSeenL: "/get-last-seen"
 }
 
 export const getEndpoint = (key) => {

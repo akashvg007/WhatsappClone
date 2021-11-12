@@ -4,11 +4,13 @@ import LeftHandMenu from "./components/LeftContainer/LeftContainer";
 import MainContainer from './components/MainContainer/MainContainer';
 import LandingPage from './components/LandingPage/LandingPage';
 import Register from './components/Register/Register';
-import { getRecentChats, getAllMyContacts, getContact } from "./Api/services";
+import { getRecentChats, getAllMyContacts, getContact, updateLastSeen } from "./Api/services";
 import { ConversationsProvider } from './contexts/ConversationsProvider';
 import { SocketProvider } from './contexts/SocketProvider';
 import { ChevronRight } from '@mui/icons-material';
 import Drawer from './ReusableComponents/Drawer/Drawer';
+
+
 function App() {
   const [selected, setSelected] = useState(false);
   const [registered, setRegistered] = useState(false);
@@ -70,11 +72,18 @@ function App() {
     setShowMenu(!showMenu)
   }
 
+  const handleUpdateLastTime = () => {
+    setInterval(() => {
+      updateLastSeen();
+    }, 60000)
+  }
+
   useEffect(() => {
     if (registered) getChats();
   }, [registered])
 
   useEffect(() => {
+    handleUpdateLastTime()
     const token = localStorage.getItem("token");
     if (token) {
       setRegistered(true);
@@ -84,8 +93,12 @@ function App() {
   }, [chatlist])
 
   // useEffect(() => {
-  //   const el = document.documentElement;
-  //   if (el.requestFullscreen) el.requestFullscreen()
+  //   setTimeout(() => {
+  //     const el = document.documentElement;
+  //     console.log("element", el);
+
+  //     if (el.requestFullscreen) el.requestFullscreen()
+  //   }, 100)
   // }, [])
 
   const leftHandStyle = { width: showMenu ? 300 : 0, height: '100%' }
