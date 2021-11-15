@@ -49,7 +49,7 @@ export default function LeftContainer({ click, list, contact, getAllContacts, pr
         { Comp: MoreVert, click: handleClickMore }
     ];
     const menuList = [
-        { title: "Add a Contact", handleClick: addContactFn },
+        { title: "Add new contact", handleClick: addContactFn },
         { title: "Dummy", handleClick: dummy },
         { title: "Dummy", handleClick: dummy },
         { title: "Dummy", handleClick: dummy }

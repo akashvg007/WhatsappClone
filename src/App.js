@@ -107,7 +107,7 @@ function App() {
     <SocketProvider id={myPhone}>
       <ConversationsProvider id={myPhone}>
         <MainContainer contact={contact} dp={pp[currentUser]}
-          phone={currentUser} />
+          phone={currentUser} getAllContacts={getAllContacts} />
       </ConversationsProvider>
     </SocketProvider>
   )

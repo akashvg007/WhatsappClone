@@ -10,10 +10,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Emoji from '../../ReusableComponents/Emoji/Emoji'
 import { useSocket } from '../../contexts/SocketProvider';
 import moment from 'moment';
+import CustomMenu from '../../ReusableComponents/Menu/Menu';
+import RightPopup from "../../ReusableComponents/RightPopupContent/RightPop";
 
-export default function MainContainer({ phone, dp, contact }) {
+export default function MainContainer({ phone, dp, contact, getAllContacts }) {
     const socket = useSocket()
-    const iconArr = [{ Comp: Search, click: null, key: 'icon1' }, { Comp: MoreVert, click: null, key: 'icon2' }];
     const [value, setValue] = useState("");
     const [loader, setLoader] = useState(false);
     const [emojiOpen, setEmojiOpen] = useState(false)
@@ -21,6 +22,8 @@ export default function MainContainer({ phone, dp, contact }) {
     const [online, setOnline] = useState('offline');
     const [showNumber, setShowNumber] = useState(false);
     const [lastSeen, SetLastSeen] = useState('');
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [open, setOpen] = useState(false);
 
     const setRef = useCallback(node => {
         if (node) node.scrollIntoView({ smooth: true })
@@ -29,6 +32,26 @@ export default function MainContainer({ phone, dp, contact }) {
 
     const photo = dp || "avatar.jpg";
     const myNum = localStorage.getItem("phone");
+
+    const addContactFn = (e) => {
+        e.stopPropagation()
+        setOpen(true)
+    }
+    const dummy = () => {
+        // need to work on the pop up msg
+    }
+    const handleClickMore = (e) => {
+        e.stopPropagation()
+        console.log("icon clicked", e);
+        setAnchorEl(e.currentTarget);
+    }
+    const iconArr = [{ Comp: Search, click: null, key: 'icon1' }, { Comp: MoreVert, click: handleClickMore, key: 'icon2' }];
+    const menuList = [
+        { title: "Add to contact", handleClick: addContactFn },
+        { title: "Dummy", handleClick: dummy },
+        { title: "Dummy", handleClick: dummy },
+        { title: "Dummy", handleClick: dummy }
+    ]
 
     const getEmoji = (emoji) => {
         console.log("getemoji::emoji", emoji.unicode);
@@ -50,6 +73,9 @@ export default function MainContainer({ phone, dp, contact }) {
     }
     const handleKeyDown = (e) => {
         if (e.key == 'Enter') handleSendMessage();
+    }
+    const handleClose = (e) => {
+        setAnchorEl(null);
     }
     const handleChange = (val) => {
         setValue(val);
@@ -152,12 +178,14 @@ export default function MainContainer({ phone, dp, contact }) {
                             let prev = "";
                             if (state[idx + 1]) prev = moment(state[idx + 1].time).format("MMM Do YY");
                             const showDate = () => {
+                                debugger;
                                 const compareString = curr.localeCompare(prev)
-                                if (compareString !== 0) (
-                                    <div className="chat-date">
+                                if (compareString !== 0) {
+                                    return (<div className="chat-date">
                                         <div className="date-wrapper">{date}</div>
-                                    </div>
-                                )
+                                    </div>)
+                                }
+
                             }
 
                             return (
@@ -195,9 +223,11 @@ export default function MainContainer({ phone, dp, contact }) {
                     />
                 </div>
                 <div className="record" onClick={handleSendMessage}>
-                    <CommonIcon Component={value == "" ? Mic : Send} />
+                    <CommonIcon click={e => { }} Component={value == "" ? Mic : Send} />
                 </div>
             </footer>
+            <CustomMenu anchorEl={anchorEl} handleClose={handleClose} menuList={menuList} />
+            <RightPopup phone={phone} getAllContacts={getAllContacts} setAnchorEl={setAnchorEl} popup={open} />
         </div>
     )
 }

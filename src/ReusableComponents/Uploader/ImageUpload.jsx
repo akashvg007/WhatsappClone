@@ -23,8 +23,8 @@ export default function ImageUpload({ close, profilePic, setProfilePic }) {
             try {
                 Resizer.imageFileResizer(
                     file,
-                    300,
-                    300,
+                    600,
+                    600,
                     "JPEG",
                     100,
                     0,
