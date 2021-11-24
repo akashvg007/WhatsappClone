@@ -178,7 +178,6 @@ export default function MainContainer({ phone, dp, contact, getAllContacts }) {
                             let prev = "";
                             if (state[idx + 1]) prev = moment(state[idx + 1].time).format("MMM Do YY");
                             const showDate = () => {
-                                debugger;
                                 const compareString = curr.localeCompare(prev)
                                 if (compareString !== 0) {
                                     return (<div className="chat-date">

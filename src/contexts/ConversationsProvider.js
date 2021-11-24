@@ -17,6 +17,8 @@ export function ConversationsProvider({ id, children }) {
 
   const addMessageToConversation = useCallback(async ({ recipient, text, sender, status = 2 }) => {
     // console.log("received msg", recipient, text, sender, status);
+    console.log("state", state);
+
     const messageObj = { msg: text, to: recipient, from: sender, time: Date.now(), status };
     setState(prev => {
       return [messageObj, ...prev]
@@ -24,8 +26,17 @@ export function ConversationsProvider({ id, children }) {
     await sendMessage(messageObj);
   }, [setState])
 
+  function playSound(url) {
+    console.log("sound:url", url);
+
+    const audio = new Audio(url);
+    audio.play();
+  }
+
   const receivedMessage = ({ recipient, text, sender, status = 2 }) => {
     // console.log("received Data", recipient, text, sender, status = 2);
+    console.log("state", state, recipient, text, sender);
+    playSound('/notification1.mp3');
     const messageObj = { msg: text, to: recipient, from: sender, time: Date.now(), status };
     setState(prev => {
       return [messageObj, ...prev]
